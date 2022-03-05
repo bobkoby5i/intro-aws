@@ -1,0 +1,48 @@
+START RequestId: 8d76f916-0504-43e8-8feb-a867130bac19 Version: $LATEST
+Config Path: /prod/matrix
+{
+    "Parameters": [
+        {
+            "Name": "/prod/matrix/db/password",
+            "Type": "SecureString",
+            "Value": "follow the rabbit",
+            "Version": 1,
+            "LastModifiedDate": "2022-02-09 08:45:17.306000+00:00",
+            "ARN": "arn:aws:ssm:eu-central-1:057232940714:parameter/prod/matrix/db/password",
+            "DataType": "text"
+        },
+        {
+            "Name": "/prod/matrix/db/server",
+            "Type": "SecureString",
+            "Value": "hello Neo",
+            "Version": 1,
+            "LastModifiedDate": "2022-02-09 08:41:09.671000+00:00",
+            "ARN": "arn:aws:ssm:eu-central-1:057232940714:parameter/prod/matrix/db/server",
+            "DataType": "text"
+        },
+        {
+            "Name": "/prod/matrix/db/servers",
+            "Type": "StringList",
+            "Value": "Neo, Morpheus, Trynity",
+            "Version": 1,
+            "LastModifiedDate": "2022-02-09 08:43:58.471000+00:00",
+            "ARN": "arn:aws:ssm:eu-central-1:057232940714:parameter/prod/matrix/db/servers",
+            "DataType": "text"
+        }
+    ],
+    "ResponseMetadata": {
+        "RequestId": "d55cc7af-129f-4dd5-8054-84a21688e84b",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+            "server": "Server",
+            "date": "Wed, 09 Feb 2022 08:47:55 GMT",
+            "content-type": "application/x-amz-json-1.1",
+            "content-length": "701",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "d55cc7af-129f-4dd5-8054-84a21688e84b"
+        },
+        "RetryAttempts": 0
+    }
+}
+END RequestId: 8d76f916-0504-43e8-8feb-a867130bac19
+REPORT RequestId: 8d76f916-0504-43e8-8feb-a867130bac19	Duration: 199.07 ms	Billed Duration: 200 ms	Memory Size: 128 MB	Max Memory Used: 67 MB	
