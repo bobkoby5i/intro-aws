@@ -1,0 +1,11 @@
+{
+    "name": "rds-db",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "dependencies": {
+        "@aws-sdk/client-rds": "^3.53.0",
+        "@aws-sdk/client-rds-data": "^3.53.0",
+        "mysql": "^2.18.1"
+    }
+}
