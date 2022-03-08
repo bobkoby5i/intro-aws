@@ -1,0 +1,9 @@
+{
+    "name": "dynamo-db",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "dependencies": {
+        "@aws-sdk/client-dynamodb": "^3.53.0"
+    }
+}
