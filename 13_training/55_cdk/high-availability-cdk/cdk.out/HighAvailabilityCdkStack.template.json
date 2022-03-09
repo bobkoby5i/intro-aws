@@ -25,14 +25,7 @@
         "VpcId": {
           "Ref": "VPCutworzonawCDKC9668817"
         },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            0,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
+        "AvailabilityZone": "eu-central-1a",
         "MapPublicIpOnLaunch": true,
         "Tags": [
           {
@@ -102,6 +95,160 @@
         "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/DefaultRoute"
       }
     },
+    "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.16.1.0/24",
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        },
+        "AvailabilityZone": "eu-central-1b",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public-subnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/Subnet"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet2RouteTable5BD4FDBD": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/RouteTable"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet2RouteTableAssociation6C7148F1": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2RouteTable5BD4FDBD"
+        },
+        "SubnetId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/RouteTableAssociation"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet2DefaultRoute7A694786": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2RouteTable5BD4FDBD"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VPCutworzonawCDKIGWF1675A60"
+        }
+      },
+      "DependsOn": [
+        "VPCutworzonawCDKVPCGW5430D6CA"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/DefaultRoute"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.16.2.0/24",
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        },
+        "AvailabilityZone": "eu-central-1c",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public-subnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/Subnet"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet3RouteTable094BC68D": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/RouteTable"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet3RouteTableAssociationED145D32": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3RouteTable094BC68D"
+        },
+        "SubnetId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/RouteTableAssociation"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet3DefaultRoute03398F05": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3RouteTable094BC68D"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VPCutworzonawCDKIGWF1675A60"
+        }
+      },
+      "DependsOn": [
+        "VPCutworzonawCDKVPCGW5430D6CA"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/DefaultRoute"
+      }
+    },
     "VPCutworzonawCDKIGWF1675A60": {
       "Type": "AWS::EC2::InternetGateway",
       "Properties": {
@@ -165,7 +312,7 @@
         "aws:cdk:path": "HighAvailabilityCdkStack/cdkSecurity/Resource"
       }
     },
-    "JedynainstancjaInstanceRole3FC5249F": {
+    "PierwszainstancjaInstanceRoleC6B3FDCF": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -193,40 +340,33 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Jedyna-instancja"
+            "Value": "Pierwsza-instancja"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Jedyna-instancja/InstanceRole/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwsza-instancja/InstanceRole/Resource"
       }
     },
-    "JedynainstancjaInstanceProfileA1385627": {
+    "PierwszainstancjaInstanceProfile68BD7DE4": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
         "Roles": [
           {
-            "Ref": "JedynainstancjaInstanceRole3FC5249F"
+            "Ref": "PierwszainstancjaInstanceRoleC6B3FDCF"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Jedyna-instancja/InstanceProfile"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwsza-instancja/InstanceProfile"
       }
     },
-    "JedynainstancjaFD040695": {
+    "PierwszainstancjaD5BA073B": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "AvailabilityZone": {
-          "Fn::Select": [
-            0,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
+        "AvailabilityZone": "eu-central-1a",
         "IamInstanceProfile": {
-          "Ref": "JedynainstancjaInstanceProfileA1385627"
+          "Ref": "PierwszainstancjaInstanceProfile68BD7DE4"
         },
         "ImageId": {
           "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
@@ -247,24 +387,301 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Jedyna-instancja"
+            "Value": "Pierwsza-instancja"
           }
         ],
         "UserData": {
-          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo echo \"Witaj świecie z $(hostname -f)\" > /var/www/html/index.html"
+          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
         }
       },
       "DependsOn": [
-        "JedynainstancjaInstanceRole3FC5249F"
+        "PierwszainstancjaInstanceRoleC6B3FDCF"
       ],
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Jedyna-instancja/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwsza-instancja/Resource"
+      }
+    },
+    "DrugainstancjaInstanceRole76E6520F": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "ec2.",
+                      {
+                        "Ref": "AWS::URLSuffix"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Drugainstancja"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugainstancja/InstanceRole/Resource"
+      }
+    },
+    "DrugainstancjaInstanceProfile937BE6AD": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "DrugainstancjaInstanceRole76E6520F"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugainstancja/InstanceProfile"
+      }
+    },
+    "DrugainstancjaA3254003": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": "eu-central-1b",
+        "IamInstanceProfile": {
+          "Ref": "DrugainstancjaInstanceProfile937BE6AD"
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t2.micro",
+        "KeyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "cdkSecurity08E5ECD2",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Drugainstancja"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
+        }
+      },
+      "DependsOn": [
+        "DrugainstancjaInstanceRole76E6520F"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugainstancja/Resource"
+      }
+    },
+    "TrzeciainstancjaInstanceRoleDE57B5AE": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "ec2.",
+                      {
+                        "Ref": "AWS::URLSuffix"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Trzecia-instancja"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzecia-instancja/InstanceRole/Resource"
+      }
+    },
+    "TrzeciainstancjaInstanceProfile3C37A465": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "TrzeciainstancjaInstanceRoleDE57B5AE"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzecia-instancja/InstanceProfile"
+      }
+    },
+    "Trzeciainstancja23F8EB1E": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": "eu-central-1c",
+        "IamInstanceProfile": {
+          "Ref": "TrzeciainstancjaInstanceProfile3C37A465"
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t2.micro",
+        "KeyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "cdkSecurity08E5ECD2",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Trzecia-instancja"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
+        }
+      },
+      "DependsOn": [
+        "TrzeciainstancjaInstanceRoleDE57B5AE"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzecia-instancja/Resource"
+      }
+    },
+    "LB8A12904C": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false"
+          }
+        ],
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "cdkSecurity08E5ECD2",
+              "GroupId"
+            ]
+          }
+        ],
+        "Subnets": [
+          {
+            "Ref": "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979"
+          },
+          {
+            "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+          },
+          {
+            "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+          }
+        ],
+        "Type": "application"
+      },
+      "DependsOn": [
+        "VPCutworzonawCDKPublicsubnetSubnet1DefaultRouteE0D87785",
+        "VPCutworzonawCDKPublicsubnetSubnet2DefaultRoute7A694786",
+        "VPCutworzonawCDKPublicsubnetSubnet3DefaultRoute03398F05"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/LB/Resource"
+      }
+    },
+    "LBListener49E825B4": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "LBListenerApplicationFleetGroupF144153C"
+            },
+            "Type": "forward"
+          }
+        ],
+        "LoadBalancerArn": {
+          "Ref": "LB8A12904C"
+        },
+        "Port": 80,
+        "Protocol": "HTTP"
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/LB/Listener/Resource"
+      }
+    },
+    "LBListenerApplicationFleetGroupF144153C": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "HealthCheckPath": "/index.html",
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetGroupAttributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false"
+          }
+        ],
+        "Targets": [
+          {
+            "Id": {
+              "Ref": "PierwszainstancjaD5BA073B"
+            }
+          },
+          {
+            "Id": {
+              "Ref": "DrugainstancjaA3254003"
+            }
+          },
+          {
+            "Id": {
+              "Ref": "Trzeciainstancja23F8EB1E"
+            }
+          }
+        ],
+        "TargetType": "instance",
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/LB/Listener/ApplicationFleetGroup/Resource"
       }
     },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQQW+DMAyFf8vuIRvVtnvFoeppCKpeJxNczS04KHFaVYj/vrDQsZ38/OUlfs5G52/65QluPjPtJeuo0WMtYC4qos8RzUaPx8Go4sTHslBlaDoydWgYZWarqmwQPEDT4cpXtvXeGgIhy7/mWexZ0EXnDgRvcF/GLN1WYpCvHllUjSY4kvvO2TD8DPgH9uwF2CxPJj0pgl6PlU2JHvVxXDp7og6nSVXobXDpcgkOeoyZ5uYjyBDScn8sheWW5kUmxbZFffbP1/xV5+/xG8+eKHOBhXrUVarfGIZ3fWIBAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VRwW7CMAz9lt1DNtC2O+sBIU1a1SKuk5saMKRJlTggVPXfl9J2LSc/v/dk+yUrufyQby9w8wtVXhaaCtnkDOoiIvXboFrJZl8rkRzMPk1EGgpNKg+FQe64CWU2MO6g0DjxE7f23ioCJmv+zR3YGkYXnRtgvMF9WDN0a46HnCo0LHJUwRHfN86G+rHgidgaz2DUMLLHrSCoZJPZ/qKxjnLq7IF0dKEGz6S0hbIAHSUyx2tMva7rGPVx8nfUvh4aum7GUz/3kWc0g2fEM30H7hizjhlmbduKDL0Nrs+QgoMKuZ/0E7gO/RvPLIk1JXVDW2FsifLsX6/Ld7n8jL959kQLFwxThTLr6x/HV1/b6QEAAA=="
       },
       "Metadata": {
         "aws:cdk:path": "HighAvailabilityCdkStack/CDKMetadata/Default"
@@ -284,11 +701,11 @@
     }
   },
   "Outputs": {
-    "PierwszainstancjaIP": {
+    "Adresloadbalancera": {
       "Value": {
         "Fn::GetAtt": [
-          "JedynainstancjaFD040695",
-          "PublicIp"
+          "LB8A12904C",
+          "DNSName"
         ]
       }
     }

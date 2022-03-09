@@ -57,14 +57,7 @@
                         "vpcId": {
                           "Ref": "VPCutworzonawCDKC9668817"
                         },
-                        "availabilityZone": {
-                          "Fn::Select": [
-                            0,
-                            {
-                              "Fn::GetAZs": ""
-                            }
-                          ]
-                        },
+                        "availabilityZone": "eu-central-1a",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
                           {
@@ -144,6 +137,230 @@
                       "aws:cdk:cloudformation:props": {
                         "routeTableId": {
                           "Ref": "VPCutworzonawCDKPublicsubnetSubnet1RouteTableFD5FF5BD"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "VPCutworzonawCDKIGWF1675A60"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.15.0"
+                }
+              },
+              "Public-subnetSubnet2": {
+                "id": "Public-subnetSubnet2",
+                "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "172.16.1.0/24",
+                        "vpcId": {
+                          "Ref": "VPCutworzonawCDKC9668817"
+                        },
+                        "availabilityZone": "eu-central-1b",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public-subnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "VPCutworzonawCDKC9668817"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2RouteTable5BD4FDBD"
+                        },
+                        "subnetId": {
+                          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2RouteTable5BD4FDBD"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "VPCutworzonawCDKIGWF1675A60"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.15.0"
+                }
+              },
+              "Public-subnetSubnet3": {
+                "id": "Public-subnetSubnet3",
+                "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "172.16.2.0/24",
+                        "vpcId": {
+                          "Ref": "VPCutworzonawCDKC9668817"
+                        },
+                        "availabilityZone": "eu-central-1c",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public-subnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "VPCutworzonawCDKC9668817"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3RouteTable094BC68D"
+                        },
+                        "subnetId": {
+                          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3RouteTable094BC68D"
                         },
                         "destinationCidrBlock": "0.0.0.0/0",
                         "gatewayId": {
@@ -256,17 +473,17 @@
               "version": "2.15.0"
             }
           },
-          "Jedyna-instancja": {
-            "id": "Jedyna-instancja",
-            "path": "HighAvailabilityCdkStack/Jedyna-instancja",
+          "Pierwsza-instancja": {
+            "id": "Pierwsza-instancja",
+            "path": "HighAvailabilityCdkStack/Pierwsza-instancja",
             "children": {
               "InstanceRole": {
                 "id": "InstanceRole",
-                "path": "HighAvailabilityCdkStack/Jedyna-instancja/InstanceRole",
+                "path": "HighAvailabilityCdkStack/Pierwsza-instancja/InstanceRole",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "HighAvailabilityCdkStack/Jedyna-instancja/InstanceRole/Resource",
+                    "path": "HighAvailabilityCdkStack/Pierwsza-instancja/InstanceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -295,7 +512,7 @@
                         "tags": [
                           {
                             "key": "Name",
-                            "value": "Jedyna-instancja"
+                            "value": "Pierwsza-instancja"
                           }
                         ]
                       }
@@ -313,13 +530,13 @@
               },
               "InstanceProfile": {
                 "id": "InstanceProfile",
-                "path": "HighAvailabilityCdkStack/Jedyna-instancja/InstanceProfile",
+                "path": "HighAvailabilityCdkStack/Pierwsza-instancja/InstanceProfile",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
                   "aws:cdk:cloudformation:props": {
                     "roles": [
                       {
-                        "Ref": "JedynainstancjaInstanceRole3FC5249F"
+                        "Ref": "PierwszainstancjaInstanceRoleC6B3FDCF"
                       }
                     ]
                   }
@@ -331,20 +548,13 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "HighAvailabilityCdkStack/Jedyna-instancja/Resource",
+                "path": "HighAvailabilityCdkStack/Pierwsza-instancja/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
                   "aws:cdk:cloudformation:props": {
-                    "availabilityZone": {
-                      "Fn::Select": [
-                        0,
-                        {
-                          "Fn::GetAZs": ""
-                        }
-                      ]
-                    },
+                    "availabilityZone": "eu-central-1a",
                     "iamInstanceProfile": {
-                      "Ref": "JedynainstancjaInstanceProfileA1385627"
+                      "Ref": "PierwszainstancjaInstanceProfile68BD7DE4"
                     },
                     "imageId": {
                       "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
@@ -365,11 +575,11 @@
                     "tags": [
                       {
                         "key": "Name",
-                        "value": "Jedyna-instancja"
+                        "value": "Pierwsza-instancja"
                       }
                     ],
                     "userData": {
-                      "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo echo \"Witaj świecie z $(hostname -f)\" > /var/www/html/index.html"
+                      "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
                     }
                   }
                 },
@@ -400,9 +610,390 @@
               "version": "2.15.0"
             }
           },
-          "Pierwsza-instancja-IP": {
-            "id": "Pierwsza-instancja-IP",
-            "path": "HighAvailabilityCdkStack/Pierwsza-instancja-IP",
+          "Drugainstancja": {
+            "id": "Drugainstancja",
+            "path": "HighAvailabilityCdkStack/Drugainstancja",
+            "children": {
+              "InstanceRole": {
+                "id": "InstanceRole",
+                "path": "HighAvailabilityCdkStack/Drugainstancja/InstanceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "HighAvailabilityCdkStack/Drugainstancja/InstanceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "ec2.",
+                                      {
+                                        "Ref": "AWS::URLSuffix"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Drugainstancja"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.15.0"
+                }
+              },
+              "InstanceProfile": {
+                "id": "InstanceProfile",
+                "path": "HighAvailabilityCdkStack/Drugainstancja/InstanceProfile",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
+                  "aws:cdk:cloudformation:props": {
+                    "roles": [
+                      {
+                        "Ref": "DrugainstancjaInstanceRole76E6520F"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnInstanceProfile",
+                  "version": "2.15.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "HighAvailabilityCdkStack/Drugainstancja/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
+                  "aws:cdk:cloudformation:props": {
+                    "availabilityZone": "eu-central-1b",
+                    "iamInstanceProfile": {
+                      "Ref": "DrugainstancjaInstanceProfile937BE6AD"
+                    },
+                    "imageId": {
+                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+                    },
+                    "instanceType": "t2.micro",
+                    "keyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
+                    "securityGroupIds": [
+                      {
+                        "Fn::GetAtt": [
+                          "cdkSecurity08E5ECD2",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnetId": {
+                      "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "Drugainstancja"
+                      }
+                    ],
+                    "userData": {
+                      "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInstance",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.Instance",
+              "version": "2.15.0"
+            }
+          },
+          "Trzecia-instancja": {
+            "id": "Trzecia-instancja",
+            "path": "HighAvailabilityCdkStack/Trzecia-instancja",
+            "children": {
+              "InstanceRole": {
+                "id": "InstanceRole",
+                "path": "HighAvailabilityCdkStack/Trzecia-instancja/InstanceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "HighAvailabilityCdkStack/Trzecia-instancja/InstanceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "ec2.",
+                                      {
+                                        "Ref": "AWS::URLSuffix"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "Trzecia-instancja"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.15.0"
+                }
+              },
+              "InstanceProfile": {
+                "id": "InstanceProfile",
+                "path": "HighAvailabilityCdkStack/Trzecia-instancja/InstanceProfile",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::InstanceProfile",
+                  "aws:cdk:cloudformation:props": {
+                    "roles": [
+                      {
+                        "Ref": "TrzeciainstancjaInstanceRoleDE57B5AE"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnInstanceProfile",
+                  "version": "2.15.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "HighAvailabilityCdkStack/Trzecia-instancja/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
+                  "aws:cdk:cloudformation:props": {
+                    "availabilityZone": "eu-central-1c",
+                    "iamInstanceProfile": {
+                      "Ref": "TrzeciainstancjaInstanceProfile3C37A465"
+                    },
+                    "imageId": {
+                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+                    },
+                    "instanceType": "t2.micro",
+                    "keyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
+                    "securityGroupIds": [
+                      {
+                        "Fn::GetAtt": [
+                          "cdkSecurity08E5ECD2",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnetId": {
+                      "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "Trzecia-instancja"
+                      }
+                    ],
+                    "userData": {
+                      "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInstance",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.Instance",
+              "version": "2.15.0"
+            }
+          },
+          "LB": {
+            "id": "LB",
+            "path": "HighAvailabilityCdkStack/LB",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "HighAvailabilityCdkStack/LB/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                  "aws:cdk:cloudformation:props": {
+                    "loadBalancerAttributes": [
+                      {
+                        "key": "deletion_protection.enabled",
+                        "value": "false"
+                      }
+                    ],
+                    "scheme": "internet-facing",
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "cdkSecurity08E5ECD2",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnets": [
+                      {
+                        "Ref": "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979"
+                      },
+                      {
+                        "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+                      },
+                      {
+                        "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+                      }
+                    ],
+                    "type": "application"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
+                  "version": "2.15.0"
+                }
+              },
+              "Listener": {
+                "id": "Listener",
+                "path": "HighAvailabilityCdkStack/LB/Listener",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "HighAvailabilityCdkStack/LB/Listener/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                      "aws:cdk:cloudformation:props": {
+                        "defaultActions": [
+                          {
+                            "type": "forward",
+                            "targetGroupArn": {
+                              "Ref": "LBListenerApplicationFleetGroupF144153C"
+                            }
+                          }
+                        ],
+                        "loadBalancerArn": {
+                          "Ref": "LB8A12904C"
+                        },
+                        "port": 80,
+                        "protocol": "HTTP"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                      "version": "2.15.0"
+                    }
+                  },
+                  "ApplicationFleetGroup": {
+                    "id": "ApplicationFleetGroup",
+                    "path": "HighAvailabilityCdkStack/LB/Listener/ApplicationFleetGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "HighAvailabilityCdkStack/LB/Listener/ApplicationFleetGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "healthCheckPath": "/index.html",
+                            "port": 80,
+                            "protocol": "HTTP",
+                            "targetGroupAttributes": [
+                              {
+                                "key": "stickiness.enabled",
+                                "value": "false"
+                              }
+                            ],
+                            "targets": [
+                              {
+                                "id": {
+                                  "Ref": "PierwszainstancjaD5BA073B"
+                                }
+                              },
+                              {
+                                "id": {
+                                  "Ref": "DrugainstancjaA3254003"
+                                }
+                              },
+                              {
+                                "id": {
+                                  "Ref": "Trzeciainstancja23F8EB1E"
+                                }
+                              }
+                            ],
+                            "targetType": "instance",
+                            "vpcId": {
+                              "Ref": "VPCutworzonawCDKC9668817"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                          "version": "2.15.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+                      "version": "2.15.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                  "version": "2.15.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
+              "version": "2.15.0"
+            }
+          },
+          "Adres-loadbalancera": {
+            "id": "Adres-loadbalancera",
+            "path": "HighAvailabilityCdkStack/Adres-loadbalancera",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.15.0"

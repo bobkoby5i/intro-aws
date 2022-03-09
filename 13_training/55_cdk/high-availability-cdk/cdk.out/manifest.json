@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/65438558126d82f4dc8abf1427f23136e854253a5bbc2c9b8b2ad11433ad948a.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/33d7687d84bfb58646a0ee549ecbafa1281a3c4e6db6d1cde31adca4e35e6a1c.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -69,6 +69,54 @@
             "data": "VPCutworzonawCDKPublicsubnetSubnet1DefaultRouteE0D87785"
           }
         ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet2RouteTable5BD4FDBD"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet2RouteTableAssociation6C7148F1"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet2DefaultRoute7A694786"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet3RouteTable094BC68D"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet3RouteTableAssociationED145D32"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet3DefaultRoute03398F05"
+          }
+        ],
         "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/IGW": [
           {
             "type": "aws:cdk:logicalId",
@@ -87,22 +135,22 @@
             "data": "cdkSecurity08E5ECD2"
           }
         ],
-        "/HighAvailabilityCdkStack/Jedyna-instancja/InstanceRole/Resource": [
+        "/HighAvailabilityCdkStack/Pierwsza-instancja/InstanceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "JedynainstancjaInstanceRole3FC5249F"
+            "data": "PierwszainstancjaInstanceRoleC6B3FDCF"
           }
         ],
-        "/HighAvailabilityCdkStack/Jedyna-instancja/InstanceProfile": [
+        "/HighAvailabilityCdkStack/Pierwsza-instancja/InstanceProfile": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "JedynainstancjaInstanceProfileA1385627"
+            "data": "PierwszainstancjaInstanceProfile68BD7DE4"
           }
         ],
-        "/HighAvailabilityCdkStack/Jedyna-instancja/Resource": [
+        "/HighAvailabilityCdkStack/Pierwsza-instancja/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "JedynainstancjaFD040695"
+            "data": "PierwszainstancjaD5BA073B"
           }
         ],
         "/HighAvailabilityCdkStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
@@ -111,10 +159,64 @@
             "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
           }
         ],
-        "/HighAvailabilityCdkStack/Pierwsza-instancja-IP": [
+        "/HighAvailabilityCdkStack/Drugainstancja/InstanceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PierwszainstancjaIP"
+            "data": "DrugainstancjaInstanceRole76E6520F"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Drugainstancja/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DrugainstancjaInstanceProfile937BE6AD"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Drugainstancja/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DrugainstancjaA3254003"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Trzecia-instancja/InstanceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TrzeciainstancjaInstanceRoleDE57B5AE"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Trzecia-instancja/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TrzeciainstancjaInstanceProfile3C37A465"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Trzecia-instancja/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Trzeciainstancja23F8EB1E"
+          }
+        ],
+        "/HighAvailabilityCdkStack/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LB8A12904C"
+          }
+        ],
+        "/HighAvailabilityCdkStack/LB/Listener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LBListener49E825B4"
+          }
+        ],
+        "/HighAvailabilityCdkStack/LB/Listener/ApplicationFleetGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LBListenerApplicationFleetGroupF144153C"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Adres-loadbalancera": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Adresloadbalancera"
           }
         ],
         "/HighAvailabilityCdkStack/CDKMetadata/Default": [
