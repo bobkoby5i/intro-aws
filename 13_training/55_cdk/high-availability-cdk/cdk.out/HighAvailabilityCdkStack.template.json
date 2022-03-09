@@ -312,7 +312,31 @@
         "aws:cdk:path": "HighAvailabilityCdkStack/cdkSecurity/Resource"
       }
     },
-    "PierwszainstancjaInstanceRoleC6B3FDCF": {
+    "cdkSecurityfromHighAvailabilityCdkStackcdkSecurity934D8E5780C10C60C4": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "Load balancer to target",
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "cdkSecurity08E5ECD2",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "cdkSecurity08E5ECD2",
+            "GroupId"
+          ]
+        },
+        "ToPort": 80
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/cdkSecurity/from HighAvailabilityCdkStackcdkSecurity934D8E57:80"
+      }
+    },
+    "PierwszagrupaInstanceRole930F93BB": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -340,40 +364,39 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Pierwsza-instancja"
+            "Value": "HighAvailabilityCdkStack/Pierwszagrupa"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwsza-instancja/InstanceRole/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwszagrupa/InstanceRole/Resource"
       }
     },
-    "PierwszainstancjaInstanceProfile68BD7DE4": {
+    "PierwszagrupaInstanceProfile10A0285D": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
         "Roles": [
           {
-            "Ref": "PierwszainstancjaInstanceRoleC6B3FDCF"
+            "Ref": "PierwszagrupaInstanceRole930F93BB"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwsza-instancja/InstanceProfile"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwszagrupa/InstanceProfile"
       }
     },
-    "PierwszainstancjaD5BA073B": {
-      "Type": "AWS::EC2::Instance",
+    "PierwszagrupaLaunchConfigB45C738C": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
-        "AvailabilityZone": "eu-central-1a",
-        "IamInstanceProfile": {
-          "Ref": "PierwszainstancjaInstanceProfile68BD7DE4"
-        },
         "ImageId": {
           "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
         },
         "InstanceType": "t2.micro",
+        "IamInstanceProfile": {
+          "Ref": "PierwszagrupaInstanceProfile10A0285D"
+        },
         "KeyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
-        "SecurityGroupIds": [
+        "SecurityGroups": [
           {
             "Fn::GetAtt": [
               "cdkSecurity08E5ECD2",
@@ -381,27 +404,72 @@
             ]
           }
         ],
-        "SubnetId": {
-          "Ref": "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979"
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo echo \"Witaj świecie z $(hostname -f)\" > /var/www/html/index.html"
+        }
+      },
+      "DependsOn": [
+        "PierwszagrupaInstanceRole930F93BB"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwszagrupa/LaunchConfig"
+      }
+    },
+    "PierwszagrupaASGE4472424": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "MaxSize": "5",
+        "MinSize": "1",
+        "LaunchConfigurationName": {
+          "Ref": "PierwszagrupaLaunchConfigB45C738C"
         },
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Pierwsza-instancja"
+            "PropagateAtLaunch": true,
+            "Value": "HighAvailabilityCdkStack/Pierwszagrupa"
           }
         ],
-        "UserData": {
-          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
+        "TargetGroupARNs": [
+          {
+            "Ref": "LBListenerApplicationFleetGroupF144153C"
+          }
+        ],
+        "VPCZoneIdentifier": [
+          {
+            "Ref": "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979"
+          }
+        ]
+      },
+      "UpdatePolicy": {
+        "AutoScalingScheduledAction": {
+          "IgnoreUnmodifiedGroupSizeProperties": true
         }
       },
-      "DependsOn": [
-        "PierwszainstancjaInstanceRoleC6B3FDCF"
-      ],
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwsza-instancja/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwszagrupa/ASG"
       }
     },
-    "DrugainstancjaInstanceRole76E6520F": {
+    "PierwszagrupaScalingPolicyLimitIngressPerInstance4D1C21CC": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "PierwszagrupaASGE4472424"
+        },
+        "EstimatedInstanceWarmup": 30,
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "ASGAverageNetworkIn"
+          },
+          "TargetValue": 100
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Pierwszagrupa/ScalingPolicyLimitIngressPerInstance/Resource"
+      }
+    },
+    "DrugagrupaInstanceRole3E59A22C": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -429,40 +497,39 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Drugainstancja"
+            "Value": "HighAvailabilityCdkStack/Drugagrupa"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Drugainstancja/InstanceRole/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugagrupa/InstanceRole/Resource"
       }
     },
-    "DrugainstancjaInstanceProfile937BE6AD": {
+    "DrugagrupaInstanceProfile86006713": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
         "Roles": [
           {
-            "Ref": "DrugainstancjaInstanceRole76E6520F"
+            "Ref": "DrugagrupaInstanceRole3E59A22C"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Drugainstancja/InstanceProfile"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugagrupa/InstanceProfile"
       }
     },
-    "DrugainstancjaA3254003": {
-      "Type": "AWS::EC2::Instance",
+    "DrugagrupaLaunchConfig77FEAA56": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
-        "AvailabilityZone": "eu-central-1b",
-        "IamInstanceProfile": {
-          "Ref": "DrugainstancjaInstanceProfile937BE6AD"
-        },
         "ImageId": {
           "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
         },
         "InstanceType": "t2.micro",
+        "IamInstanceProfile": {
+          "Ref": "DrugagrupaInstanceProfile86006713"
+        },
         "KeyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
-        "SecurityGroupIds": [
+        "SecurityGroups": [
           {
             "Fn::GetAtt": [
               "cdkSecurity08E5ECD2",
@@ -470,27 +537,72 @@
             ]
           }
         ],
-        "SubnetId": {
-          "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo echo \"Witaj świecie z $(hostname -f)\" > /var/www/html/index.html"
+        }
+      },
+      "DependsOn": [
+        "DrugagrupaInstanceRole3E59A22C"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugagrupa/LaunchConfig"
+      }
+    },
+    "DrugagrupaASG65FD4F2C": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "MaxSize": "5",
+        "MinSize": "1",
+        "LaunchConfigurationName": {
+          "Ref": "DrugagrupaLaunchConfig77FEAA56"
         },
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Drugainstancja"
+            "PropagateAtLaunch": true,
+            "Value": "HighAvailabilityCdkStack/Drugagrupa"
           }
         ],
-        "UserData": {
-          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
+        "TargetGroupARNs": [
+          {
+            "Ref": "LBListenerApplicationFleetGroupF144153C"
+          }
+        ],
+        "VPCZoneIdentifier": [
+          {
+            "Ref": "VPCutworzonawCDKPublicsubnetSubnet2Subnet3048566B"
+          }
+        ]
+      },
+      "UpdatePolicy": {
+        "AutoScalingScheduledAction": {
+          "IgnoreUnmodifiedGroupSizeProperties": true
         }
       },
-      "DependsOn": [
-        "DrugainstancjaInstanceRole76E6520F"
-      ],
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Drugainstancja/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugagrupa/ASG"
       }
     },
-    "TrzeciainstancjaInstanceRoleDE57B5AE": {
+    "DrugagrupaScalingPolicyKeepSpareCPU2774B7C0": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "DrugagrupaASG65FD4F2C"
+        },
+        "EstimatedInstanceWarmup": 30,
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "ASGAverageCPUUtilization"
+          },
+          "TargetValue": 10
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Drugagrupa/ScalingPolicyKeepSpareCPU/Resource"
+      }
+    },
+    "TrzeciagrupaInstanceRole5FDAFCCA": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -518,40 +630,39 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Trzecia-instancja"
+            "Value": "HighAvailabilityCdkStack/Trzeciagrupa"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Trzecia-instancja/InstanceRole/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzeciagrupa/InstanceRole/Resource"
       }
     },
-    "TrzeciainstancjaInstanceProfile3C37A465": {
+    "TrzeciagrupaInstanceProfileAEEE6970": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
         "Roles": [
           {
-            "Ref": "TrzeciainstancjaInstanceRoleDE57B5AE"
+            "Ref": "TrzeciagrupaInstanceRole5FDAFCCA"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Trzecia-instancja/InstanceProfile"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzeciagrupa/InstanceProfile"
       }
     },
-    "Trzeciainstancja23F8EB1E": {
-      "Type": "AWS::EC2::Instance",
+    "TrzeciagrupaLaunchConfig366535EB": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
-        "AvailabilityZone": "eu-central-1c",
-        "IamInstanceProfile": {
-          "Ref": "TrzeciainstancjaInstanceProfile3C37A465"
-        },
         "ImageId": {
           "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
         },
         "InstanceType": "t2.micro",
+        "IamInstanceProfile": {
+          "Ref": "TrzeciagrupaInstanceProfileAEEE6970"
+        },
         "KeyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
-        "SecurityGroupIds": [
+        "SecurityGroups": [
           {
             "Fn::GetAtt": [
               "cdkSecurity08E5ECD2",
@@ -559,24 +670,128 @@
             ]
           }
         ],
-        "SubnetId": {
-          "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo echo \"Witaj świecie z $(hostname -f)\" > /var/www/html/index.html"
+        }
+      },
+      "DependsOn": [
+        "TrzeciagrupaInstanceRole5FDAFCCA"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzeciagrupa/LaunchConfig"
+      }
+    },
+    "TrzeciagrupaASG5CCF0723": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "MaxSize": "5",
+        "MinSize": "1",
+        "LaunchConfigurationName": {
+          "Ref": "TrzeciagrupaLaunchConfig366535EB"
         },
         "Tags": [
           {
             "Key": "Name",
-            "Value": "Trzecia-instancja"
+            "PropagateAtLaunch": true,
+            "Value": "HighAvailabilityCdkStack/Trzeciagrupa"
           }
         ],
-        "UserData": {
-          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable  httpd\nsudo echo \"Witaj świecie nowym z $(hostname -f)\" > /var/www/html/index.html"
+        "TargetGroupARNs": [
+          {
+            "Ref": "LBListenerApplicationFleetGroupF144153C"
+          }
+        ],
+        "VPCZoneIdentifier": [
+          {
+            "Ref": "VPCutworzonawCDKPublicsubnetSubnet3Subnet26F4D0B7"
+          }
+        ]
+      },
+      "UpdatePolicy": {
+        "AutoScalingScheduledAction": {
+          "IgnoreUnmodifiedGroupSizeProperties": true
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzeciagrupa/ASG"
+      }
+    },
+    "TrzeciagrupaScalingPolicyLimitRPSB7FEA50F": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "TrzeciagrupaASG5CCF0723"
+        },
+        "EstimatedInstanceWarmup": 30,
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "ALBRequestCountPerTarget",
+            "ResourceLabel": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "/",
+                          {
+                            "Ref": "LBListener49E825B4"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "/",
+                  {
+                    "Fn::Select": [
+                      2,
+                      {
+                        "Fn::Split": [
+                          "/",
+                          {
+                            "Ref": "LBListener49E825B4"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "/",
+                  {
+                    "Fn::Select": [
+                      3,
+                      {
+                        "Fn::Split": [
+                          "/",
+                          {
+                            "Ref": "LBListener49E825B4"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "/",
+                  {
+                    "Fn::GetAtt": [
+                      "LBListenerApplicationFleetGroupF144153C",
+                      "TargetGroupFullName"
+                    ]
+                  }
+                ]
+              ]
+            }
+          },
+          "TargetValue": 20
         }
       },
       "DependsOn": [
-        "TrzeciainstancjaInstanceRoleDE57B5AE"
+        "LBListenerApplicationFleetGroupF144153C",
+        "LBListener49E825B4"
       ],
       "Metadata": {
-        "aws:cdk:path": "HighAvailabilityCdkStack/Trzecia-instancja/Resource"
+        "aws:cdk:path": "HighAvailabilityCdkStack/Trzeciagrupa/ScalingPolicyLimitRPS/Resource"
       }
     },
     "LB8A12904C": {
@@ -652,23 +867,6 @@
             "Value": "false"
           }
         ],
-        "Targets": [
-          {
-            "Id": {
-              "Ref": "PierwszainstancjaD5BA073B"
-            }
-          },
-          {
-            "Id": {
-              "Ref": "DrugainstancjaA3254003"
-            }
-          },
-          {
-            "Id": {
-              "Ref": "Trzeciainstancja23F8EB1E"
-            }
-          }
-        ],
         "TargetType": "instance",
         "VpcId": {
           "Ref": "VPCutworzonawCDKC9668817"
@@ -681,7 +879,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VRwW7CMAz9lt1DNtC2O+sBIU1a1SKuk5saMKRJlTggVPXfl9J2LSc/v/dk+yUrufyQby9w8wtVXhaaCtnkDOoiIvXboFrJZl8rkRzMPk1EGgpNKg+FQe64CWU2MO6g0DjxE7f23ioCJmv+zR3YGkYXnRtgvMF9WDN0a46HnCo0LHJUwRHfN86G+rHgidgaz2DUMLLHrSCoZJPZ/qKxjnLq7IF0dKEGz6S0hbIAHSUyx2tMva7rGPVx8nfUvh4aum7GUz/3kWc0g2fEM30H7hizjhlmbduKDL0Nrs+QgoMKuZ/0E7gO/RvPLIk1JXVDW2FsifLsX6/Ld7n8jL959kQLFwxThTLr6x/HV1/b6QEAAA=="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31SXW+CMBT9LXuv3TTb3pkPi4nJCBhfl0u56tXSkvZWYwj/fRUQWZbsqfd8cHs4sJDzN/nyBBc/U+VppqmQTc6gTiJS3w2qhWy2tRLLndmmS5GGQpPKQ2GQb9xjymxg3ECh8cE/uMR7qwiYrBnNt2FlGF10fgLjBa7DNQNKOAY5VGhY5KiCI75+Ohvq7oJ/iZXZO/S+FRDYegWazF42SQR5D8bH1hCMOiyt2dE+uDHgH+sG3B5542IzkRuk1MYyutC/iFYQVLLJbN/F/VwZz2AUps7uSGMrUINnUtpCWYCOUtxwjn0ndR3XdFnWUfvoNHRd3Cme+sgzmsFznyd6H3986wlsW5Ght8GpLmQKDirkftNX4Dr0X3diiWWVdFvaCmNLlEf/fJ6/yvl7/I+OnmjmgmGqUGb9+QO2A8QPYwIAAA=="
       },
       "Metadata": {
         "aws:cdk:path": "HighAvailabilityCdkStack/CDKMetadata/Default"

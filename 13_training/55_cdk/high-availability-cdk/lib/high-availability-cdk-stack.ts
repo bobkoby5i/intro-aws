@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { aws_ec2 as ec2 } from 'aws-cdk-lib';
 import { Stack, StackProps } from 'aws-cdk-lib';
+import * as autoscaling from 'aws-cdk-lib/aws-autoscaling';
 
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as targets from 'aws-cdk-lib/aws-elasticloadbalancingv2-targets';
@@ -72,12 +73,47 @@ export class HighAvailabilityCdkStack extends Stack {
     // })
 
 
-    //-22-----
-    const instance1 = this.newInstance(vpc, securityGroup, 'Pierwsza-instancja', 'eu-central-1a');
-    const instance2 = this.newInstance(vpc, securityGroup, 'Drugainstancja', 'eu-central-1b');
-    const instance3 = this.newInstance(vpc, securityGroup, 'Trzecia-instancja', 'eu-central-1c');
+    // //-22-----
+    // const instance1 = this.newInstance(vpc, securityGroup, 'Pierwsza-instancja', 'eu-central-1a');
+    // const instance2 = this.newInstance(vpc, securityGroup, 'Drugainstancja', 'eu-central-1b');
+    // const instance3 = this.newInstance(vpc, securityGroup, 'Trzecia-instancja', 'eu-central-1c');
 
-    //-24-----
+    // //-24-----
+    // const lb = new elbv2.ApplicationLoadBalancer(this, 'LB', {
+    //   vpc,
+    //   internetFacing: true,
+    //   securityGroup: securityGroup,
+    // });
+    // const listener = lb.addListener('Listener', {
+    //   port: 80,
+    //   open: true,
+    // });
+    // listener.addTargets('ApplicationFleet', {
+    //   port: 80,
+    //   healthCheck: {
+    //     path: '/index.html',
+    //   },
+    //   targets: [new targets.InstanceTarget(instance1),
+    //   new targets.InstanceTarget(instance2),
+    //   new targets.InstanceTarget(instance3)]
+    // });
+    // new cdk.CfnOutput(this, 'Adres-loadbalancera', {
+    //   value: lb.loadBalancerDnsName
+    // })
+
+
+
+    // The code that defines your stack goes here
+
+    // example resource
+    // const queue = new sqs.Queue(this, 'HighAvailabilityCdkQueue', {
+    //   visibilityTimeout: cdk.Duration.seconds(300)
+    // });
+
+    //-31-----
+    const asg1 = this.newAutoScaling(vpc, securityGroup, 'Pierwszagrupa', 'eu-central-1a');
+    const asg2 = this.newAutoScaling(vpc, securityGroup, 'Drugagrupa', 'eu-central-1b');
+    const asg3 = this.newAutoScaling(vpc, securityGroup, 'Trzeciagrupa', 'eu-central-1c');
     const lb = new elbv2.ApplicationLoadBalancer(this, 'LB', {
       vpc,
       internetFacing: true,
@@ -92,22 +128,27 @@ export class HighAvailabilityCdkStack extends Stack {
       healthCheck: {
         path: '/index.html',
       },
-      targets: [new targets.InstanceTarget(instance1),
-      new targets.InstanceTarget(instance2),
-      new targets.InstanceTarget(instance3)]
+      targets: [asg1, asg2, asg3]
     });
+
+    asg1.scaleOnIncomingBytes('LimitIngressPerInstance', {
+      targetBytesPerSecond: 100, //10 * 1024 * 1024 // 10 MB/s
+      estimatedInstanceWarmup: cdk.Duration.seconds(30),
+    });
+    asg2.scaleOnCpuUtilization('KeepSpareCPU', {
+      targetUtilizationPercent: 10,
+      estimatedInstanceWarmup: cdk.Duration.seconds(30),
+    });
+    asg3.scaleOnRequestCount('LimitRPS', {
+      targetRequestsPerMinute: 20,
+      estimatedInstanceWarmup: cdk.Duration.seconds(30),
+    });
+
+
     new cdk.CfnOutput(this, 'Adres-loadbalancera', {
       value: lb.loadBalancerDnsName
-    })
+    });
 
-
-
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'HighAvailabilityCdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
   }
 
   //-19-----
@@ -145,6 +186,35 @@ export class HighAvailabilityCdkStack extends Stack {
     return instance;
   }
 
-
+  //-30-----
+  newAutoScaling(vpc: ec2.Vpc, sg: ec2.SecurityGroup, Name: string,
+    azs: string): autoscaling.AutoScalingGroup {
+    const commandsUserData = ec2.UserData.forLinux();
+    commandsUserData.addCommands('sudo su');
+    commandsUserData.addCommands('sudo yum update -y');
+    commandsUserData.addCommands('sudo yum install -y httpd');
+    commandsUserData.addCommands('sudo systemctl start httpd');
+    commandsUserData.addCommands('sudo systemctl enable httpd');
+    commandsUserData.addCommands('sudo echo "Witaj świecie z $(hostname -f)" > /var/www/html/index.html');
+    const asg = new autoscaling.AutoScalingGroup(this, Name, {
+      vpc,
+      securityGroup: sg,
+      vpcSubnets: {
+        subnetType: ec2.SubnetType.PUBLIC,
+        onePerAz: true,
+        availabilityZones: [azs],
+      },
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2,
+        ec2.InstanceSize.MICRO),
+      machineImage: ec2.MachineImage.latestAmazonLinux({
+        generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
+      }),
+      keyName: 'guru-koby5i-20210205_EC2_MyUSE1KP',
+      userData: commandsUserData,
+      minCapacity: 1,
+      maxCapacity: 5,
+    });
+    return asg;
+  }
 
 }

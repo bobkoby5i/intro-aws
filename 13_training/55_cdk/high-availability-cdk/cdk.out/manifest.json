@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/33d7687d84bfb58646a0ee549ecbafa1281a3c4e6db6d1cde31adca4e35e6a1c.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/4856f1da23c3938ed1b39a8e8fa44bef87eb954f7589d2a93174018f06cb3f1b.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -135,22 +135,40 @@
             "data": "cdkSecurity08E5ECD2"
           }
         ],
-        "/HighAvailabilityCdkStack/Pierwsza-instancja/InstanceRole/Resource": [
+        "/HighAvailabilityCdkStack/cdkSecurity/from HighAvailabilityCdkStackcdkSecurity934D8E57:80": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PierwszainstancjaInstanceRoleC6B3FDCF"
+            "data": "cdkSecurityfromHighAvailabilityCdkStackcdkSecurity934D8E5780C10C60C4"
           }
         ],
-        "/HighAvailabilityCdkStack/Pierwsza-instancja/InstanceProfile": [
+        "/HighAvailabilityCdkStack/Pierwszagrupa/InstanceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PierwszainstancjaInstanceProfile68BD7DE4"
+            "data": "PierwszagrupaInstanceRole930F93BB"
           }
         ],
-        "/HighAvailabilityCdkStack/Pierwsza-instancja/Resource": [
+        "/HighAvailabilityCdkStack/Pierwszagrupa/InstanceProfile": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PierwszainstancjaD5BA073B"
+            "data": "PierwszagrupaInstanceProfile10A0285D"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Pierwszagrupa/LaunchConfig": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PierwszagrupaLaunchConfigB45C738C"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Pierwszagrupa/ASG": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PierwszagrupaASGE4472424"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Pierwszagrupa/ScalingPolicyLimitIngressPerInstance/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PierwszagrupaScalingPolicyLimitIngressPerInstance4D1C21CC"
           }
         ],
         "/HighAvailabilityCdkStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
@@ -159,40 +177,64 @@
             "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
           }
         ],
-        "/HighAvailabilityCdkStack/Drugainstancja/InstanceRole/Resource": [
+        "/HighAvailabilityCdkStack/Drugagrupa/InstanceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DrugainstancjaInstanceRole76E6520F"
+            "data": "DrugagrupaInstanceRole3E59A22C"
           }
         ],
-        "/HighAvailabilityCdkStack/Drugainstancja/InstanceProfile": [
+        "/HighAvailabilityCdkStack/Drugagrupa/InstanceProfile": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DrugainstancjaInstanceProfile937BE6AD"
+            "data": "DrugagrupaInstanceProfile86006713"
           }
         ],
-        "/HighAvailabilityCdkStack/Drugainstancja/Resource": [
+        "/HighAvailabilityCdkStack/Drugagrupa/LaunchConfig": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DrugainstancjaA3254003"
+            "data": "DrugagrupaLaunchConfig77FEAA56"
           }
         ],
-        "/HighAvailabilityCdkStack/Trzecia-instancja/InstanceRole/Resource": [
+        "/HighAvailabilityCdkStack/Drugagrupa/ASG": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TrzeciainstancjaInstanceRoleDE57B5AE"
+            "data": "DrugagrupaASG65FD4F2C"
           }
         ],
-        "/HighAvailabilityCdkStack/Trzecia-instancja/InstanceProfile": [
+        "/HighAvailabilityCdkStack/Drugagrupa/ScalingPolicyKeepSpareCPU/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "TrzeciainstancjaInstanceProfile3C37A465"
+            "data": "DrugagrupaScalingPolicyKeepSpareCPU2774B7C0"
           }
         ],
-        "/HighAvailabilityCdkStack/Trzecia-instancja/Resource": [
+        "/HighAvailabilityCdkStack/Trzeciagrupa/InstanceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "Trzeciainstancja23F8EB1E"
+            "data": "TrzeciagrupaInstanceRole5FDAFCCA"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Trzeciagrupa/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TrzeciagrupaInstanceProfileAEEE6970"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Trzeciagrupa/LaunchConfig": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TrzeciagrupaLaunchConfig366535EB"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Trzeciagrupa/ASG": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TrzeciagrupaASG5CCF0723"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Trzeciagrupa/ScalingPolicyLimitRPS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TrzeciagrupaScalingPolicyLimitRPSB7FEA50F"
           }
         ],
         "/HighAvailabilityCdkStack/LB/Resource": [
