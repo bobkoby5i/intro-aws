@@ -1,0 +1,148 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "HighAvailabilityCdkStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "HighAvailabilityCdkStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "HighAvailabilityCdkStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "HighAvailabilityCdkStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/65438558126d82f4dc8abf1427f23136e854253a5bbc2c9b8b2ad11433ad948a.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "HighAvailabilityCdkStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "HighAvailabilityCdkStack.assets"
+      ],
+      "metadata": {
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKC9668817"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet1RouteTableFD5FF5BD"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet1RouteTableAssociation1B6259C8"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKPublicsubnetSubnet1DefaultRouteE0D87785"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKIGWF1675A60"
+          }
+        ],
+        "/HighAvailabilityCdkStack/VPC_utworzona_w_CDK/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCutworzonawCDKVPCGW5430D6CA"
+          }
+        ],
+        "/HighAvailabilityCdkStack/cdkSecurity/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkSecurity08E5ECD2"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Jedyna-instancja/InstanceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "JedynainstancjaInstanceRole3FC5249F"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Jedyna-instancja/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "JedynainstancjaInstanceProfileA1385627"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Jedyna-instancja/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "JedynainstancjaFD040695"
+          }
+        ],
+        "/HighAvailabilityCdkStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/HighAvailabilityCdkStack/Pierwsza-instancja-IP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PierwszainstancjaIP"
+          }
+        ],
+        "/HighAvailabilityCdkStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/HighAvailabilityCdkStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/HighAvailabilityCdkStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/HighAvailabilityCdkStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "HighAvailabilityCdkStack"
+    }
+  }
+}

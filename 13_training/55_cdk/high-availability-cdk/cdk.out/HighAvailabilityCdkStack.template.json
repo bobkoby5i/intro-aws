@@ -1,0 +1,517 @@
+{
+  "Resources": {
+    "VPCutworzonawCDKC9668817": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "172.16.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Resource"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.16.0.0/24",
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public-subnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/Subnet"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet1RouteTableFD5FF5BD": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/RouteTable"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet1RouteTableAssociation1B6259C8": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet1RouteTableFD5FF5BD"
+        },
+        "SubnetId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/RouteTableAssociation"
+      }
+    },
+    "VPCutworzonawCDKPublicsubnetSubnet1DefaultRouteE0D87785": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet1RouteTableFD5FF5BD"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VPCutworzonawCDKIGWF1675A60"
+        }
+      },
+      "DependsOn": [
+        "VPCutworzonawCDKVPCGW5430D6CA"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/Public-subnetSubnet1/DefaultRoute"
+      }
+    },
+    "VPCutworzonawCDKIGWF1675A60": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/IGW"
+      }
+    },
+    "VPCutworzonawCDKVPCGW5430D6CA": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        },
+        "InternetGatewayId": {
+          "Ref": "VPCutworzonawCDKIGWF1675A60"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/VPC_utworzona_w_CDK/VPCGW"
+      }
+    },
+    "cdkSecurity08E5ECD2": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Pozwalaj na SSH i http",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Pozwalaj na ssh z dowolnego adresu ip",
+            "FromPort": 22,
+            "IpProtocol": "tcp",
+            "ToPort": 22
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Pozwalaj na http z dowolnego adresu ip",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPCutworzonawCDKC9668817"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/cdkSecurity/Resource"
+      }
+    },
+    "JedynainstancjaInstanceRole3FC5249F": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "ec2.",
+                      {
+                        "Ref": "AWS::URLSuffix"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jedyna-instancja"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Jedyna-instancja/InstanceRole/Resource"
+      }
+    },
+    "JedynainstancjaInstanceProfileA1385627": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "JedynainstancjaInstanceRole3FC5249F"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Jedyna-instancja/InstanceProfile"
+      }
+    },
+    "JedynainstancjaFD040695": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "IamInstanceProfile": {
+          "Ref": "JedynainstancjaInstanceProfileA1385627"
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t2.micro",
+        "KeyName": "guru-koby5i-20210205_EC2_MyUSE1KP",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "cdkSecurity08E5ECD2",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetId": {
+          "Ref": "VPCutworzonawCDKPublicsubnetSubnet1SubnetC295C979"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Jedyna-instancja"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash\nsudo su\nsudo yum update -y\nsudo yum install -y httpd\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo echo \"Witaj świecie z $(hostname -f)\" > /var/www/html/index.html"
+        }
+      },
+      "DependsOn": [
+        "JedynainstancjaInstanceRole3FC5249F"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/Jedyna-instancja/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQQW+DMAyFf8vuIRvVtnvFoeppCKpeJxNczS04KHFaVYj/vrDQsZ38/OUlfs5G52/65QluPjPtJeuo0WMtYC4qos8RzUaPx8Go4sTHslBlaDoydWgYZWarqmwQPEDT4cpXtvXeGgIhy7/mWexZ0EXnDgRvcF/GLN1WYpCvHllUjSY4kvvO2TD8DPgH9uwF2CxPJj0pgl6PlU2JHvVxXDp7og6nSVXobXDpcgkOeoyZ5uYjyBDScn8sheWW5kUmxbZFffbP1/xV5+/xG8+eKHOBhXrUVarfGIZ3fWIBAAA="
+      },
+      "Metadata": {
+        "aws:cdk:path": "HighAvailabilityCdkStack/CDKMetadata/Default"
+      },
+      "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Parameters": {
+    "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+    },
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Outputs": {
+    "PierwszainstancjaIP": {
+      "Value": {
+        "Fn::GetAtt": [
+          "JedynainstancjaFD040695",
+          "PublicIp"
+        ]
+      }
+    }
+  },
+  "Conditions": {
+    "CDKMetadataAvailable": {
+      "Fn::Or": [
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "af-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ca-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-northwest-1"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-3"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "me-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "sa-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-2"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}
