@@ -1,0 +1,94 @@
+service: bob-pets-ts
+
+frameworkVersion: "3"
+
+provider:
+  stage: dev
+  name: aws
+  region: eu-central-1
+  runtime: nodejs14.x
+
+  apiGateway:
+    apiKeys:
+      - bob-pets-ts-api-key-${opt:stage, self:provider.stage}  
+
+  environment:
+    PETS_DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.PETS_DYNAMODB_TABLE}"
+
+functions:
+  createPet:
+    handler: pets/create.create
+    events:
+      - http:
+          path: pets
+          method: post
+          private: true
+          cors: true
+
+  listPets:
+    handler: pets/list.list
+    events:
+      - http:
+          path: pets
+          method: get
+          cors: true
+
+  getPet:
+    handler: pets/get.get
+    events:
+      - http:
+          path: pets/{id}
+          method: get
+          private: true
+          cors: true
+
+  updatePet:
+    handler: pets/update.update
+    events:
+      - http:
+          path: pets/{id}
+          method: put
+          private: true
+          cors: true
+
+  deletePet:
+    handler: pets/delete.delete
+    events:
+      - http:
+          path: pets/{id}
+          method: delete
+          private: true
+          cors: true
+
+resources:
+  Resources:
+    PetsTable:
+      Type: AWS::DynamoDB::Table
+      # Keeps around the DynamoDB resource when we redeploy/destroy
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.PETS_DYNAMODB_TABLE}
