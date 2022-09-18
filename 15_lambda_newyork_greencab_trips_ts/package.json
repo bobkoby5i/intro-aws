@@ -2,7 +2,7 @@
   "name": "serverless-nodejs-ts-bob-pets",
   "version": "1.0.0",
   "description": "Serverless REST HTTP API for CRUD operations on DynamoDB",
-  "author": "Fernando Medina Corey",
+  "author": "koby5i",
   "license": "MIT",
   "dependencies": {
     "uuid": "^2.0.3"
