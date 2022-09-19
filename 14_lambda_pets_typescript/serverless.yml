@@ -30,7 +30,7 @@ provider:
 
 functions:
   createPet:
-    handler: pets/create.create
+    handler: pets/apiPets.createPet
     events:
       - http:
           path: pets
@@ -39,7 +39,7 @@ functions:
           cors: true
 
   listPets:
-    handler: pets/list.list
+    handler: pets/apiPets.getAllPets
     events:
       - http:
           path: pets
@@ -47,28 +47,28 @@ functions:
           cors: true
 
   getPet:
-    handler: pets/get.get
+    handler: pets/apiPets.getPet
     events:
       - http:
-          path: pets/{id}
+          path: pets/{petId}
           method: get
           private: true
           cors: true
 
   updatePet:
-    handler: pets/update.update
+    handler: pets/apiPets.updatePet
     events:
       - http:
-          path: pets/{id}
+          path: pets/{petId}
           method: put
           private: true
           cors: true
 
   deletePet:
-    handler: pets/delete.delete
+    handler: pets/apiPets.deletePet
     events:
       - http:
-          path: pets/{id}
+          path: pets/{petId}
           method: delete
           private: true
           cors: true
@@ -82,11 +82,11 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: id
+            AttributeName: petId
             AttributeType: S
         KeySchema:
           -
-            AttributeName: id
+            AttributeName: petId
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -95,5 +95,5 @@ resources:
 
 plugins:
   - serverless-plugin-typescript
-  - serverless-offline
-  - serverless-dynamodb-local
+#  - serverless-offline
+#  - serverless-dynamodb-local

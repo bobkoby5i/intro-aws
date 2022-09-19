@@ -66,5 +66,3 @@ List the details of a specific pet (in this case Bella from above):
 General structure for listing specific pet details:
 `curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/pets/id`
 
-Training by - https://github.com/fernando-mc/serverless-node-rest-api
-Inspired by - https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb
