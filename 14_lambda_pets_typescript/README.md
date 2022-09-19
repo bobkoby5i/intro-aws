@@ -10,7 +10,7 @@ A Serverless Framework Project for a REST HTTP API for CRUD operations on Dynamo
 
 ### To deploy application to DEV env
 
-Run in console in directory `./system-announcements`
+Run in console in directory `./pets`
 
 ```bash
 serverless deploy
@@ -52,7 +52,7 @@ Add a pet:
 `curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/pets --data '{ "petName": "Bella", "petBreed": "Corgi" }'`
 
 Sample response:
-`{"id":"618b4190-6917-11e7-82a3-ed6b88661fcb","petName":"Bella","petBreed":"Corgi","createdAt":1500093479977,"updatedAt":1500093479977}`
+`{"id":"bf4fd3bb-e9d6-4de4-ba38-fec7ddc1abb2","petName":"Bella","petBreed":"Corgi","createdAt":1500093479977,"updatedAt":1500093479977}`
 
 Add another pet:
 `curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/pets --data '{ "petName": "Riley", "petBreed": "Jack Russell Mix" }'`
