@@ -95,5 +95,5 @@ resources:
 
 plugins:
   - serverless-plugin-typescript
-#  - serverless-offline
+  - serverless-offline
 #  - serverless-dynamodb-local

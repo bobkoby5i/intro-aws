@@ -2,6 +2,7 @@ import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {fetchAllPets, fetchPetById, deletePetById, savePet} from "./service/PetService";
 import {Pet} from "./model/Pet";
 import {v4} from "uuid";
+//import { uuid } from "uuidv4";
 import * as yup from "yup";
 import {InvalidRequest} from "./exception/InvalidRequest";
 import {CreatePetRequestDto} from "./dto/createPetRequestDto";
@@ -14,7 +15,10 @@ import {defaultHeaders, handleError} from "./handlers";
 export const createPet = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     console.log("POST Pet");
-    const pet = await createPetFromRequestBody(event);
+    const createPetRequestDto = await validatePayloadAndGetCreatePetRequestDto(event); // dto.CreatePetRequestDto
+    const pet = await createPetFromPetRequestDto(createPetRequestDto);
+
+    //const pet = await createPetFromRequestBody(event);
 
     await savePet(pet);
     return {
@@ -74,7 +78,7 @@ export const getAllPets = async (event: APIGatewayProxyEvent): Promise<APIGatewa
 }
 
 
-// update Announcement
+// UPDATE /pets/{id}
 export const updatePet = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const petId = event.pathParameters?.petId as string;
@@ -108,6 +112,8 @@ async function createPetFromRequestBody(event: APIGatewayProxyEvent): Promise<Pe
   const createPetRequestDto = await validatePayloadAndGetCreatePetRequestDto(event); // dto.CreatePetRequestDto
   const petId = v4(); // TODO to chyba Dynamo nadaje ID. (wtedy wiadomo co to jest)
 
+  //const petId = uuid();
+
   const now = new Date().toISOString();
   const createdAt = now;
   const updatedAt = now;
@@ -123,6 +129,7 @@ async function createPetFromRequestBody(event: APIGatewayProxyEvent): Promise<Pe
 
 async function createPetFromPetRequestDto(createPetRequestDto: CreatePetRequestDto): Promise<Pet> {
   const petId = v4(); // TODO to chyba Dynamo nadaje ID. (wtedy wiadomo co to jest)
+  //const petId = uuid();
 
   const now = new Date().toISOString();
   const createdAt = now;
