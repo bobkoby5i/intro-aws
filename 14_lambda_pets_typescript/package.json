@@ -15,8 +15,8 @@
     "compile": "tsc",
     "debug-lin": "export SLS_DEBUG=* && node --debug-port 9229  ./node_modules/.bin/serverless offline -s $SLS_STAGE",
     "debug-win": "SET SLS_DEBUG=* && node --debug-port 9229 %USERPROFILE%\\AppData\\Roaming\\npm\\node_modules\\serverless\\bin\\serverless offline -s %SLS_STAGE%",
-    "vc-debug-li" : "export SLS_DEBUG=* && node --inspect /usr/local/bin/serverless offline",
-    "debug" : "SET SLS_DEBUG=* && node --inspect node_modules\\serverless\\bin\\serverless offline"
+    "vc-debug-li": "export SLS_DEBUG=* && node --inspect /usr/local/bin/serverless offline",
+    "debug": "SET SLS_DEBUG=* && node --inspect node_modules\\serverless\\bin\\serverless offline"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.102",
